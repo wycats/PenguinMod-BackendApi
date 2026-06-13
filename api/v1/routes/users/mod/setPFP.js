@@ -53,9 +53,9 @@ module.exports = (app, utils) => {
                 return utils.error(res, 400, "File too large");
             }
 
-            const picture = fs.readFileSync(
-                path.join(utils.homeDir, pictureName.path),
-            );
+            // multer now writes to an absolute /tmp path, so read it directly
+            // rather than joining against homeDir.
+            const picture = fs.readFileSync(pictureName.path);
 
             const allowedFormats = ["png", "jpeg", "gif"];
 

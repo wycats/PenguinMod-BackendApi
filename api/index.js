@@ -27,16 +27,12 @@ module.exports = async (req, res) => {
         ({ app, init } = load());
         await init();
     } catch (err) {
-        console.error("Backend boot failed:", err);
+        // Log the full error server-side (visible in runtime logs); return a
+        // generic message so we never leak stack traces to clients.
+        console.error("Backend boot failed:", err && err.stack ? err.stack : err);
         res.statusCode = 500;
         res.setHeader("Content-Type", "application/json");
-        res.end(
-            JSON.stringify({
-                error: "BootError",
-                message: err && err.message,
-                stack: err && err.stack ? err.stack.split("\n").slice(0, 8) : null,
-            }),
-        );
+        res.end(JSON.stringify({ error: "Server initialization failed" }));
         return;
     }
 
