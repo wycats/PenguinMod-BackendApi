@@ -5232,7 +5232,7 @@ class UserManager {
                     {
                         From: {
                             Email: "no-reply@penguinmod.com",
-                            Name: "PenguinMod",
+                            Name: "PatternYard",
                         },
                         To: [
                             {
