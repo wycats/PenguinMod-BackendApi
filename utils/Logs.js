@@ -10,6 +10,7 @@ const featuredWebhook = process.env.FeaturedWebhook;
 const websiteInfoWebhook = process.env.WebsiteInfoWebhook;
 const messagesWebhook = process.env.MessagesWebhook;
 const watchlistWebhook = process.env.WatchlistWebhook;
+const apiBase = process.env.ApiURL || "https://api.patternyard.dev";
 
 function sendHeatLog(text, trigger, type, location, color = 0xff0000) {
     const body = JSON.stringify({
@@ -524,7 +525,7 @@ function sendCreationLog(username, id, name, type, color = 0x25da5b) {
                 author: {
                     name: String(username).substring(0, 50),
                     icon_url: String(
-                        "https://api.patternyard.dev/api/v1/users/getpfp?username=" +
+                        apiBase + "/api/v1/users/getpfp?username=" +
                             String(username).substring(0, 50),
                     ),
                     url: String(
@@ -539,7 +540,7 @@ function sendCreationLog(username, id, name, type, color = 0x25da5b) {
     };
 
     if (type === "upload" || type === "update") {
-        const url = `https://api.patternyard.dev/api/v1/projects/getproject?requestType=thumbnail&projectID=${id}&rnd=${Math.random()}`;
+        const url = `${apiBase}/api/v1/projects/getproject?requestType=thumbnail&projectID=${id}&rnd=${Math.random()}`;
         body_json.embeds[0].image = {
             url,
         };
@@ -560,7 +561,7 @@ function sendCreationLog(username, id, name, type, color = 0x25da5b) {
 
 function sendFeatureLog(id, title, creator, manual = false) {
     const projectImage = String(
-        `https://api.patternyard.dev/api/v1/projects/getproject?requestType=thumbnail&projectID=${id}`,
+        `${apiBase}/api/v1/projects/getproject?requestType=thumbnail&projectID=${id}`,
     );
     const projectTitle = String(title).substring(0, 250);
     const body = JSON.stringify({
@@ -575,7 +576,7 @@ function sendFeatureLog(id, title, creator, manual = false) {
                 author: {
                     name: String(creator).substring(0, 50),
                     icon_url: String(
-                        "https://api.patternyard.dev/api/v1/users/getpfp?username=" +
+                        apiBase + "/api/v1/users/getpfp?username=" +
                             String(creator).substring(0, 50),
                     ),
                     url: String(
@@ -600,7 +601,7 @@ function sendFeatureLog(id, title, creator, manual = false) {
 const watchlist = {
     sendProjectUploadLog(id, title, creator) {
         const projectImage = String(
-            `https://api.patternyard.dev/api/v1/projects/getproject?requestType=thumbnail&projectID=${id}`,
+            `${apiBase}/api/v1/projects/getproject?requestType=thumbnail&projectID=${id}`,
         );
         const projectTitle = String(title).substring(0, 250);
         const body = JSON.stringify({
@@ -615,7 +616,7 @@ const watchlist = {
                     author: {
                         name: String(creator).substring(0, 50),
                         icon_url: String(
-                            "https://api.patternyard.dev/api/v1/users/getpfp?username=" +
+                            apiBase + "/api/v1/users/getpfp?username=" +
                                 String(creator).substring(0, 50),
                         ),
                         url: String(
@@ -639,7 +640,7 @@ const watchlist = {
 
     sendProjectUpdateLog(id, title, creator) {
         const projectImage = String(
-            `https://api.patternyard.dev/api/v1/projects/getproject?requestType=thumbnail&projectID=${id}`,
+            `${apiBase}/api/v1/projects/getproject?requestType=thumbnail&projectID=${id}`,
         );
         const projectTitle = String(title).substring(0, 250);
         const body = JSON.stringify({
@@ -654,7 +655,7 @@ const watchlist = {
                     author: {
                         name: String(creator).substring(0, 50),
                         icon_url: String(
-                            "https://api.patternyard.dev/api/v1/users/getpfp?username=" +
+                            apiBase + "/api/v1/users/getpfp?username=" +
                                 String(creator).substring(0, 50),
                         ),
                         url: String(
@@ -685,12 +686,12 @@ const watchlist = {
                     description: `User ID: \`${id}\``,
                     color: 0xcecd77,
                     url: String(
-                        "https://patternyard.dev/profile?user=" + String(id),
+                        "https://patternyard.dev/profile?user=" + new_username,
                     ),
                     author: {
                         name: String(new_username),
                         icon_url: String(
-                            "https://api.patternyard.dev/api/v1/users/getpfp?username=" +
+                            apiBase + "/api/v1/users/getpfp?username=" +
                                 String(new_username),
                         ),
                         url: String(
@@ -723,7 +724,7 @@ const watchlist = {
                     author: {
                         name: String(admin).substring(0, 50),
                         icon_url: String(
-                            "https://api.patternyard.dev/api/v1/users/getpfp?username=" +
+                            apiBase + "/api/v1/users/getpfp?username=" +
                                 String(admin).substring(0, 50),
                         ),
                         url: String(

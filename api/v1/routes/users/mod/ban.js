@@ -128,7 +128,7 @@ module.exports = (app, utils) => {
             },
             {
                 name: "URL",
-                value: `https://patternyard.dev/profile?userid=${targetID}`,
+                value: `https://patternyard.dev/profile?user=${username}`,
             },
         );
 
